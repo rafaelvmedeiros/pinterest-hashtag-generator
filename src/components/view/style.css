@@ -1,0 +1,13 @@
+textarea {
+  width: 500px;
+  height: 150px;
+  margin-bottom: 16px;
+  padding: 12px;
+}
+
+@media only screen and (max-width: 499px) {
+  textarea {
+    width: 250px;
+    height: 150px;
+  }
+}
