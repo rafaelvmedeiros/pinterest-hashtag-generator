@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "homepage": "https://rafaelvmedeiros.github.io/pinterest-hashtag-generator",
+  "homepage": "https://rafaelvmedeiros.github.io/pinterest-hashtag-generator/",
   "main": "src/index.tsx",
   "dependencies": {
     "@emotion/memoize": "0.8.0",
