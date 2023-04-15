@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pinterest-hashtag-generator/static/css/main.ade28fb2.css",
+    "main.js": "/pinterest-hashtag-generator/static/js/main.74864ab3.js",
+    "index.html": "/pinterest-hashtag-generator/index.html",
+    "main.ade28fb2.css.map": "/pinterest-hashtag-generator/static/css/main.ade28fb2.css.map",
+    "main.74864ab3.js.map": "/pinterest-hashtag-generator/static/js/main.74864ab3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ade28fb2.css",
+    "static/js/main.74864ab3.js"
+  ]
+}
