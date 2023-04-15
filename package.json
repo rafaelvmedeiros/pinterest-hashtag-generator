@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
+  "homepage": "https://rafaelvmedeiros.github.io/pinterest-hashtag-generator",
   "main": "src/index.tsx",
   "dependencies": {
     "@emotion/memoize": "0.8.0",
@@ -29,13 +30,16 @@
   "devDependencies": {
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0",
+    "gh-pages": "^5.0.0",
     "typescript": "4.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
