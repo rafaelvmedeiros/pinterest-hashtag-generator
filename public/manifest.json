@@ -1,0 +1,9 @@
+{
+  "name": "Pinterest Hashtag Generator",
+  "short_name": "PHG",
+  "theme_color": "#2196f3",
+  "background_color": "#2196f3",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/index.html"
+}
