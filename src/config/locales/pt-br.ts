@@ -10,6 +10,7 @@ export default {
     view_title: "Hashtags relacionadas a ",
     view_button_copy: "Copiar Hashtags",
     default_hashtag: "amor",
-    country_list_input: "Cidades"
-  }
+    country_list_input: "Cidades",
+    error_api: "Tente Novamente Mais Tarde!",
+  },
 };

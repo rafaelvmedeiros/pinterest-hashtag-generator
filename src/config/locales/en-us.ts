@@ -10,6 +10,7 @@ export default {
     view_title: "Top Hashtags related to",
     view_button_copy: "Copy Hashtags",
     default_hashtag: "love",
-    country_list_input: "Countries"
-  }
+    country_list_input: "Countries",
+    error_api: "Try again Later",
+  },
 };

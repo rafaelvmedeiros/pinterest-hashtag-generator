@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
 
 import "./style.css";
@@ -26,7 +26,7 @@ export default function View(props: any) {
       <Button
         variant="outlined"
         id="copyHashtagsButton"
-        onClick={(event) => copyToClipboard(event)}
+        onClick={(event: any) => copyToClipboard(event)}
       >
         {t("view_button_copy")}
       </Button>

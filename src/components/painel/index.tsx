@@ -1,18 +1,18 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import View from "../view";
 import countries from "../../config/country";
 import "./style.css";
 
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import Autocomplete from "@mui/material/Autocomplete";
 
 export default function Painel() {
   const { t } = useTranslation();
   const [terms, setTerms] = React.useState({
     hashtag: t("default_hashtag"),
-    country: ""
+    country: "",
   });
 
   const [countryList] = React.useState(countries);
@@ -26,7 +26,7 @@ export default function Painel() {
 
     setTerms({
       ...terms,
-      [event.target.name]: event.target.value.toLowerCase()
+      [event.target.name]: event.target.value.toLowerCase(),
     });
   }
 
@@ -57,26 +57,30 @@ export default function Painel() {
   function onSelecteCountry(event: any) {
     event.preventDefault();
 
-    const selectedCountry = event.target.value;
+    const selectedCountryTarget = event.target.value;
 
-    if (!selectedCountry) {
+    if (!selectedCountryTarget) {
       return;
     }
 
-    if (selectedCountry.toLowerCase() === selectedCountry) {
+    if (selectedCountryTarget.length <= 2) {
       return;
     }
 
-    const abreviation = countryList.find(
-      (c) => c.country.toLowerCase() === selectedCountry.toLowerCase()
+    if (selectedCountry.toLowerCase() === selectedCountryTarget.toLowerCase()) {
+      return;
+    }
+
+    const abreviation = countryList.find((c) =>
+      c.country.toLowerCase().includes(selectedCountryTarget.toLowerCase())
     ) as any;
 
     if (Object.keys(abreviation).length) {
-      setSelectedCountry(selectedCountry);
+      setSelectedCountry(selectedCountryTarget);
 
       setTerms({
         ...terms,
-        country: abreviation.code
+        country: abreviation.code,
       });
     }
   }
@@ -86,30 +90,29 @@ export default function Painel() {
 
     setIsLoading(true);
 
-    fetch("https://api.vackao.com/v1/api/hashtags", {
+    const result = await fetch("https://api.vackao.com/v1/api/hashtags", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         country: terms.country,
-        hash: terms.hashtag
-      })
+        hash: terms.hashtag,
+      }),
     })
       .then((response) => response.json())
-      .then((response) => {
-        if (response?.data && response.data.includes("Delete")) {
-          const dataReplaced = response.data.replace(/<[^>]+>/g, "");
-          const [, data] = dataReplaced.split("Delete");
-          setHashList(data.trim());
-        }
-
-        setIsLoading(false);
-      })
       .catch(() => {
-        alert("");
+        alert(t("error_api"));
         setIsLoading(false);
       });
+
+    if (result?.data && result.data.includes("Delete")) {
+      const dataReplaced = result.data.replace(/<[^>]+>/g, "");
+      const [, data] = dataReplaced.split("Delete");
+      setHashList(data.trim());
+    }
+
+    setIsLoading(false);
   }
 
   return (
@@ -128,37 +131,27 @@ export default function Painel() {
             style={{ width: 300, paddingBottom: 20 }}
           />
 
-          <TextField
-            id="country"
-            name="country"
-            label={t("country_input")}
-            onChange={onChangeCountry}
-            variant="outlined"
+          <Autocomplete
+            options={countryFiltered}
             style={{ width: 300, paddingBottom: 20 }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t("country_list_input")}
+                value={selectedCountry}
+                onChange={onChangeCountry}
+                id="country"
+                name="country"
+                onSelect={onSelecteCountry}
+                variant="outlined"
+              />
+            )}
           />
-
-          {Array.isArray(countryFiltered) && countryFiltered.length ? (
-            <Autocomplete
-              options={countryFiltered}
-              style={{ width: 300, paddingBottom: 20 }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={t("country_list_input")}
-                  value={selectedCountry}
-                  id="countryList"
-                  name="countryList"
-                  onSelect={onSelecteCountry}
-                  variant="outlined"
-                />
-              )}
-            />
-          ) : null}
 
           <Button
             variant="outlined"
             id="findHashtagsButton"
-            onClick={(event) => searchFormTerms(event)}
+            onClick={(event: any) => searchFormTerms(event)}
           >
             {t("button_search_title")}
           </Button>
